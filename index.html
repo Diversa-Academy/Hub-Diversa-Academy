@@ -79,6 +79,21 @@
         .nav-links a { font-weight: 500; font-size: 1.1rem; color: var(--cinza-02); transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--azul-01); }
 
+        /* Botão Hambúrguer (Mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 30px; height: 3px;
+            background-color: var(--cinza-01);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
         .ticker-container {
             width: 100%; 
             height: 54px; 
@@ -91,6 +106,37 @@
         .ticker-container .tradingview-widget-container {
             width: 100%;
         }
+
+        /* =========================================
+           MENU LATERAL MOBILE (SIDEBAR)
+           ========================================= */
+        .sidebar-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(0,0,0,0.8); z-index: 2000;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .sidebar-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+
+        .mobile-sidebar {
+            position: fixed; top: 0; right: -100%; width: 300px; max-width: 80%; height: 100vh;
+            background-color: var(--azul-05); border-left: 1px solid var(--azul-03);
+            z-index: 2001; transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            padding: 80px 30px; display: flex; flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        }
+        .mobile-sidebar.active { right: 0; }
+        
+        .close-sidebar {
+            position: absolute; top: 20px; right: 30px; font-size: 2.5rem;
+            color: var(--cinza-02); cursor: pointer; transition: color 0.3s; line-height: 1;
+        }
+        .close-sidebar:hover { color: #fff; }
+
+        .mobile-nav-links { list-style: none; display: flex; flex-direction: column; gap: 30px; margin-top: 20px; }
+        .mobile-nav-links a { font-size: 1.4rem; font-weight: 700; color: var(--cinza-01); transition: color 0.3s; display: block; }
+        .mobile-nav-links a:hover { color: var(--azul-01); }
 
         /* =========================================
            HERO SECTION COM VÍDEO DE FUNDO
@@ -127,55 +173,25 @@
         /* =========================================
            NOVA SEÇÃO: DESTAQUES (Carrossel Automático)
            ========================================= */
-        .destaques-section {
-            padding: 80px 0;
-            background-color: var(--azul-04);
-        }
-
-        .destaques-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr; 
-            gap: 30px;
-        }
+        .destaques-section { padding: 80px 0; background-color: var(--azul-04); }
+        .destaques-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
 
         .destaque-main {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            height: 100%;
-            min-height: 360px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid var(--azul-03);
+            position: relative; border-radius: 16px; overflow: hidden; height: 100%;
+            min-height: 360px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--azul-03);
             background-color: var(--azul-05);
         }
 
         .carousel-slide {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.6s ease-in-out, visibility 0.6s;
-            display: flex;
-            align-items: flex-end;
-            z-index: 0;
-            text-decoration: none;
-            color: inherit;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden;
+            transition: opacity 0.6s ease-in-out, visibility 0.6s; display: flex; align-items: flex-end; z-index: 0; text-decoration: none; color: inherit;
         }
 
         .carousel-slide.active { opacity: 1; visibility: visible; z-index: 1; }
-
-        .carousel-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 0; transition: transform 0.8s ease-out;
-        }
-
+        .carousel-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.8s ease-out; }
         .destaque-main:hover .carousel-slide.active .carousel-bg { transform: scale(1.08); }
 
-        .destaque-main-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.2) 100%); z-index: 1;
-        }
-
+        .destaque-main-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.2) 100%); z-index: 1; }
         .destaque-content { position: relative; z-index: 2; padding: 30px 40px; width: 100%; }
         .destaque-tag { font-size: 0.8rem; font-weight: 800; color: var(--azul-01); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; display: inline-block; }
         .destaque-content h2 { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.2; letter-spacing: -1px; }
@@ -199,18 +215,13 @@
 
         .ranking-card { background-color: var(--cinza-05); border: 1px solid var(--azul-03); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; }
         .ranking-header { font-size: 1rem; font-weight: 800; color: var(--cinza-01); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-        
-        .ranking-widget-container { 
-            height: 360px; 
-            width: 100%;
-        }
+        .ranking-widget-container { height: 360px; width: 100%; }
 
         /* =========================================
            SEÇÕES GERAIS E CARTÕES DE CURSOS/FERRAMENTAS
            ========================================= */
         .section { padding: 80px 0; }
         .section-alt { background-color: var(--azul-05); }
-
         .section-header { margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end; }
         .section-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; color: var(--cinza-01); }
         .section-title span { color: var(--azul-01); }
@@ -219,31 +230,10 @@
 
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 
-        .card {
-            position: relative; aspect-ratio: 16 / 9; background-color: var(--cinza-05);
-            border: 1px solid var(--azul-03); border-radius: 12px; overflow: hidden;
-            cursor: pointer; transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-            display: block;
-        }
-        
-        .thumbnail { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background-size: cover; background-position: center; z-index: 1; 
-            transition: transform 0.6s ease; 
-        }
-
-        .card-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 100%);
-            z-index: 2;
-        }
-        
-        .card-info { 
-            position: absolute; bottom: 0; left: 0; z-index: 3; padding: 20px; 
-            width: 100%; color: var(--cinza-01); transform: translateY(0); 
-            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1); 
-        }
-        
+        .card { position: relative; aspect-ratio: 16 / 9; background-color: var(--cinza-05); border: 1px solid var(--azul-03); border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease, border-color 0.4s ease; display: block; }
+        .thumbnail { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 1; transition: transform 0.6s ease; }
+        .card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 100%); z-index: 2; }
+        .card-info { position: absolute; bottom: 0; left: 0; z-index: 3; padding: 20px; width: 100%; color: var(--cinza-01); transform: translateY(0); transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
         .card-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--azul-01); margin-bottom: 5px; display: block; }
         .card-title { font-size: 1.25rem; font-weight: 700; line-height: 1.2; transition: color 0.3s ease; }
 
@@ -271,10 +261,9 @@
 
         /* --- AJUSTES FINAIS PARA MOBILE --- */
         @media (max-width: 768px) {
-            body {
-                padding-top: 146px; 
-            }
-            .nav-links { display: none; }
+            body { padding-top: 146px; }
+            .nav-links { display: none; /* Esconde menu do topo no mobile */ }
+            .hamburger { display: flex; /* Exibe o botão hambúrguer */ }
             .grid-3 { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.5rem; }
             .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
@@ -298,6 +287,11 @@
                     <li><a href="#ferramentas">Ferramentas</a></li>
                     <li><a href="#blog">Blog</a></li>
                 </ul>
+                <div class="hamburger" onclick="toggleSidebar()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </nav>
         
@@ -325,6 +319,16 @@
                 </script>
             </div>
         </div>
+    </div>
+
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div class="mobile-sidebar">
+        <div class="close-sidebar" onclick="toggleSidebar()">&times;</div>
+        <ul class="mobile-nav-links">
+            <li><a href="#cursos" onclick="toggleSidebar()">Cursos & Materiais</a></li>
+            <li><a href="#ferramentas" onclick="toggleSidebar()">Ferramentas</a></li>
+            <li><a href="#blog" onclick="toggleSidebar()">Blog</a></li>
+        </ul>
     </div>
 
     <header class="hero">
@@ -548,6 +552,20 @@
     </footer>
 
     <script>
+        /* Sidebar Toggle */
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.mobile-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const isClosing = sidebar.classList.contains('active');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Trava/Destrava o scroll da página de fundo
+            document.body.style.overflow = isClosing ? 'auto' : 'hidden';
+        }
+
+        /* Carrossel */
         let slideIndex = 1;
         const autoPlayDelay = 5000; 
 
