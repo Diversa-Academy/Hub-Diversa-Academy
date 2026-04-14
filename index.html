@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diversa Academy - O Seu Portal Financeiro</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/S%C3%ADmbolo%20Preto%20e%20Azul%2001.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           VARIÁVEIS DE CORES
+           ========================================= */
+        :root {
+            --azul-01: #0D86FF;
+            --azul-02: #0143A5;
+            --azul-03: #001138;
+            --azul-04: #000320;
+            --azul-05: #050935;
+            
+            --cinza-01: #EBEBEB;
+            --cinza-02: #CDCDCD;
+            --cinza-03: #9B9B9B;
+            --cinza-04: #67686A;
+            --cinza-05: #353638;
+            --preto: #0F0F0F;
+        }
+
+        /* =========================================
+           RESET E BASE
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--azul-04);
+            color: var(--cinza-01);
+            overflow-x: hidden;
+            line-height: 1.6;
+            padding-top: 126px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* =========================================
+           HEADER FIXO (Navbar + Ticker)
+           ========================================= */
+        .fixed-header {
+            position: fixed;
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            background-color: rgba(0, 3, 32, 0.98); 
+            border-bottom: 1px solid var(--azul-03);
+            display: flex; flex-direction: column;
+        }
+
+        .navbar .container {
+            display: flex; justify-content: space-between; align-items: center; height: 80px;
+        }
+
+        .logo-img { height: 50px; width: auto; display: block; }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { font-weight: 500; font-size: 1.1rem; color: var(--cinza-02); transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--azul-01); }
+
+        .ticker-container {
+            width: 100%; height: 46px; border-top: 1px solid var(--azul-05); background-color: #000000;
+        }
+
+        /* =========================================
+           HERO SECTION COM VÍDEO DE FUNDO
+           ========================================= */
+        .hero {
+            position: relative; padding: 140px 0; min-height: 80vh;
+            display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid var(--azul-05);
+        }
+
+        .hero-bg-video {
+            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            width: auto; height: auto; transform: translateX(-50%) translateY(-50%);
+            z-index: 0; object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 3, 32, 0.95) 0%, rgba(0, 17, 56, 0.6) 100%); z-index: 1;
+        }
+
+        .hero-content { position: relative; z-index: 2; max-width: 700px; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1.5px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .hero h1 span { color: var(--azul-01); }
+        .hero p { font-size: 1.2rem; color: var(--cinza-01); margin-bottom: 30px; max-width: 600px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .hero-buttons { display: flex; gap: 15px; }
+        
+        .btn-primary { background-color: var(--azul-01); color: #fff; padding: 14px 30px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; transition: background 0.3s ease; }
+        .btn-primary:hover { background-color: var(--azul-02); }
+        
+        .btn-secondary { background-color: transparent; color: var(--cinza-01); padding: 14px 30px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; border: 2px solid var(--cinza-02); transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease; }
+        .btn-secondary:hover { border-color: var(--azul-01); color: #fff; background-color: rgba(13, 134, 255, 0.1); }
+
+        /* =========================================
+           NOVA SEÇÃO: DESTAQUES (Carrossel Automático)
+           ========================================= */
+        .destaques-section {
+            padding: 80px 0;
+            background-color: var(--azul-04);
+        }
+
+        .destaques-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; 
+            gap: 30px;
+        }
+
+        .destaque-main {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            min-height: 450px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--azul-03);
+            background-color: var(--azul-05);
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease-in-out, visibility 0.6s;
+            display: flex;
+            align-items: flex-end;
+            z-index: 0;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .carousel-slide.active { opacity: 1; visibility: visible; z-index: 1; }
+
+        .carousel-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0; transition: transform 0.8s ease-out;
+        }
+
+        .destaque-main:hover .carousel-slide.active .carousel-bg { transform: scale(1.08); }
+
+        .destaque-main-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%); z-index: 1;
+        }
+
+        .destaque-content { position: relative; z-index: 2; padding: 40px; width: 100%; }
+        .destaque-tag { font-size: 0.8rem; font-weight: 800; color: var(--azul-01); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; display: inline-block; }
+        .destaque-content h2 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1.2; letter-spacing: -1px; }
+        .destaque-content p { font-size: 1.1rem; color: var(--cinza-02); max-width: 90%; margin-bottom: 20px; }
+
+        .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; color: rgba(255,255,255,0.5); font-size: 2rem; cursor: pointer; padding: 15px; transition: color 0.3s, transform 0.3s; user-select: none; }
+        .carousel-arrow:hover { color: #fff; transform: translateY(-50%) scale(1.2); }
+        .carousel-prev { left: 10px; }
+        .carousel-next { right: 10px; }
+
+        .carousel-dots-container { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 3; }
+        .dot { width: 10px; height: 10px; background-color: rgba(255,255,255,0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s; }
+        .dot.active { background-color: var(--azul-01); width: 25px; border-radius: 5px; }
+
+        .destaque-sidebar { display: flex; flex-direction: column; gap: 30px; }
+
+        .contact-card { background: linear-gradient(135deg, var(--azul-03) 0%, var(--azul-05) 100%); border: 1px solid var(--azul-02); border-radius: 16px; padding: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .contact-card p { font-size: 1.1rem; font-weight: 600; color: var(--cinza-01); line-height: 1.4; margin-bottom: 20px; }
+        .contact-card .highlight { color: var(--azul-01); font-weight: 800; }
+        .btn-contact { display: block; text-align: center; background-color: var(--cinza-01); color: var(--azul-04); padding: 12px 20px; border-radius: 8px; font-weight: 800; transition: background 0.3s ease, transform 0.2s ease; }
+        .btn-contact:hover { background-color: #fff; transform: translateY(-2px); }
+
+        .ranking-card { background-color: var(--cinza-05); border: 1px solid var(--azul-03); border-radius: 16px; padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .ranking-header { font-size: 1rem; font-weight: 800; color: var(--cinza-01); margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
+        .ranking-widget-container { flex-grow: 1; height: 300px; }
+
+        /* =========================================
+           SEÇÕES GERAIS E CARTÕES DE CURSOS/FERRAMENTAS
+           ========================================= */
+        .section { padding: 80px 0; }
+        .section-alt { background-color: var(--azul-05); }
+
+        .section-header { margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .section-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; color: var(--cinza-01); }
+        .section-title span { color: var(--azul-01); }
+        .section-link { color: var(--azul-01); font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        .section-link:hover { text-decoration: underline; }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+        /* Estilo do Card com imagem de fundo e hover zoom */
+        .card {
+            position: relative; aspect-ratio: 16 / 9; background-color: var(--cinza-05);
+            border: 1px solid var(--azul-03); border-radius: 12px; overflow: hidden;
+            cursor: pointer; transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+            display: block;
+        }
+        
+        .thumbnail { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background-size: cover; background-position: center; z-index: 1; 
+            transition: transform 0.6s ease; 
+        }
+
+        .card-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 100%);
+            z-index: 2;
+        }
+        
+        .card-info { 
+            position: absolute; bottom: 0; left: 0; z-index: 3; padding: 20px; 
+            width: 100%; color: var(--cinza-01); transform: translateY(0); 
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1); 
+        }
+        
+        .card-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--azul-01); margin-bottom: 5px; display: block; }
+        .card-title { font-size: 1.25rem; font-weight: 700; line-height: 1.2; transition: color 0.3s ease; }
+
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 15px rgba(13, 134, 255, 0.15); border-color: var(--azul-01); z-index: 10; }
+        .card:hover .thumbnail { transform: scale(1.1); } 
+        .card:hover .card-info { transform: translateY(-5px); }
+        .card:hover .card-title { color: #fff; }
+
+        /* Cartões do Blog */
+        .blog-card { display: block; background-color: var(--azul-05); border: 1px solid var(--azul-03); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .blog-card:hover { transform: translateY(-5px); border-color: var(--azul-02); }
+        .blog-img { width: 100%; height: 200px; object-fit: cover; background-color: var(--cinza-05); }
+        .blog-content { padding: 25px; }
+        .blog-date { font-size: 0.85rem; color: var(--cinza-03); margin-bottom: 10px; display: block; }
+        .blog-title { font-size: 1.3rem; font-weight: 700; color: var(--cinza-01); margin-bottom: 10px; line-height: 1.3; }
+        .blog-desc { font-size: 0.95rem; color: var(--cinza-02); }
+
+        footer { background-color: var(--preto); padding: 40px 0; text-align: center; border-top: 1px solid var(--azul-03); }
+        footer p { color: var(--cinza-03); font-size: 0.9rem; }
+
+        @media (max-width: 992px) {
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .destaques-grid { grid-template-columns: 1fr; }
+            .destaque-main { min-height: 400px; }
+            .hero h1 { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .hero { padding: 80px 0; min-height: 60vh; }
+            .logo-img { height: 40px; }
+            .destaque-content h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fixed-header">
+        <nav class="navbar">
+            <div class="container">
+                <a href="#">
+                    <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/53612906de9b294b389d48610d98437d1fceadd4/Prancheta%2025.png" alt="Diversa Academy" class="logo-img">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#cursos">Cursos & Materiais</a></li>
+                    <li><a href="#ferramentas">Ferramentas</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="ticker-container">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                {
+                "symbols": [
+                    { "description": "IBOVESPA", "proName": "BMFBOVESPA:IBOV" },
+                    { "description": "PETROBRAS PN", "proName": "BMFBOVESPA:PETR4" },
+                    { "description": "VALE ON", "proName": "BMFBOVESPA:VALE3" },
+                    { "description": "ITAÚ UNIBANCO PN", "proName": "BMFBOVESPA:ITUB4" },
+                    { "description": "B. BRASIL ON", "proName": "BMFBOVESPA:BBAS3" },
+                    { "description": "BRADESCO PN", "proName": "BMFBOVESPA:BBDC4" },
+                    { "description": "B3 ON", "proName": "BMFBOVESPA:B3SA3" },
+                    { "description": "WEG ON", "proName": "BMFBOVESPA:WEGE3" }
+                ],
+                "showSymbolLogo": true, "isTransparent": true, "displayMode": "adaptive", "colorTheme": "dark", "locale": "br"
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <header class="hero">
+        <video class="hero-bg-video" autoplay loop muted playsinline>
+            <source src="https://raw.githubusercontent.com/Diversa-Academy/Images/53612906de9b294b389d48610d98437d1fceadd4/3.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Domine o mercado com a <span>Diversa Academy</span></h1>
+                <p>O ecossistema completo para investidores. Acesse nossos cursos de opções, calculadoras de patrimônio e relatórios exclusivos para tomar as melhores decisões.</p>
+                <div class="hero-buttons">
+                    <a href="#cursos" class="btn-primary">Começar Agora</a>
+                    <a href="#ferramentas" class="btn-secondary">Ver Ferramentas</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="destaques-section">
+        <div class="container">
+            <div class="destaques-grid">
+                
+                <div class="destaque-main">
+                    <a href="https://www.linkedin.com/pulse/o-papel-do-assessor-de-investimentos-rhian-figueiredo-minef/?trackingId=tM0F5W7lTyC1ON1QRET1SA%3D%3D" target="_blank" class="carousel-slide active">
+                        <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/1711130314104.png" class="carousel-bg" alt="O Papel do Assessor">
+                        <div class="destaque-main-overlay"></div>
+                        <div class="destaque-content">
+                            <span class="destaque-tag">Assessoria</span>
+                            <h2>O Papel do Assessor de Investimentos</h2>
+                            <p>Entenda como um assessor atua e a importância vital desse profissional para a construção e proteção do seu patrimônio.</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.linkedin.com/pulse/carteira-administrada-virada-de-chave-para-rhian-figueiredo-rlbnf/?trackingId=tM0F5W7lTyC1ON1QRET1SA%3D%3D" target="_blank" class="carousel-slide">
+                        <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/1712152706652.png" class="carousel-bg" alt="Carteira Administrada">
+                        <div class="destaque-main-overlay"></div>
+                        <div class="destaque-content">
+                            <span class="destaque-tag">Gestão</span>
+                            <h2>Carteira Administrada: A Virada de Chave</h2>
+                            <p>Descubra como a gestão profissional da sua carteira pode transformar seus resultados e trazer mais segurança para seus investimentos.</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.linkedin.com/pulse/5-princ%25C3%25ADpios-para-seu-portfolio-rhian-figueiredo-eikhf/?trackingId=tM0F5W7lTyC1ON1QRET1SA%3D%3D" target="_blank" class="carousel-slide">
+                        <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/1718885949630.png" class="carousel-bg" alt="Princípios para o Portfólio">
+                        <div class="destaque-main-overlay"></div>
+                        <div class="destaque-content">
+                            <span class="destaque-tag">Estratégia</span>
+                            <h2>5 Princípios para o seu Portfólio</h2>
+                            <p>Conheça as bases fundamentais para estruturar uma carteira de investimentos sólida, resiliente e focada no longo prazo.</p>
+                        </div>
+                    </a>
+
+                    <div class="carousel-arrow carousel-prev" onclick="moveSlide(-1)">&#10094;</div>
+                    <div class="carousel-arrow carousel-next" onclick="moveSlide(1)">&#10095;</div>
+                    
+                    <div class="carousel-dots-container">
+                        <div class="dot active" onclick="currentSlide(1)"></div>
+                        <div class="dot" onclick="currentSlide(2)"></div>
+                        <div class="dot" onclick="currentSlide(3)"></div>
+                    </div>
+                </div>
+
+                <div class="destaque-sidebar">
+                    <div class="contact-card">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--cinza-02); letter-spacing: 1px; margin-bottom: 10px;">DIVERSA INVESTIMENTOS</div>
+                        <p>Cuidado que vai além dos seus investimentos.</p>
+                        <a href="https://api.whatsapp.com/send/?phone=554433466200&text&type=phone_number&app_absent=0" target="_blank" class="btn-contact">Agende uma consulta</a>
+                    </div>
+
+                    <div class="ranking-card">
+                        <div class="ranking-header">RANKING B3 EM TEMPO REAL</div>
+                        <div class="ranking-widget-container">
+                            <div class="tradingview-widget-container">
+                                <div class="tradingview-widget-container__widget"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
+                                {
+                                "colorTheme": "dark",
+                                "dateRange": "1D",
+                                "exchange": "BMFBOVESPA",
+                                "showChart": true,
+                                "locale": "br",
+                                "largeChartUrl": "",
+                                "isTransparent": true,
+                                "showSymbolLogo": true,
+                                "showFloatingTooltip": false,
+                                "width": "100%",
+                                "height": "100%"
+                                }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cursos" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cursos <span>& Materiais</span></h2>
+                <a href="#" class="section-link">Ver todos os cursos &rarr;</a>
+            </div>
+            
+            <div class="grid-3">
+                
+                <a href="http://curso-opcoes.diversaacademy.com.br/#pre%C3%A7o" target="_blank" class="card">
+                    <div class="thumbnail" style="background-image: url('https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/Mask%20group-2.png');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <span class="card-tag">Curso Completo</span>
+                        <div class="card-title">Curso de Opções Avançado</div>
+                    </div>
+                </a>
+
+                <a href="http://curso-opcoes.diversaacademy.com.br/#pre%C3%A7o" target="_blank" class="card">
+                    <div class="thumbnail" style="background-image: url('https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/Mask%20group-3.png');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <span class="card-tag">E-Book</span>
+                        <div class="card-title">O Guia Definitivo: Call e Put</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="ferramentas" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nossas <span>Ferramentas</span></h2>
+                <a href="#" class="section-link">Acessar painel &rarr;</a>
+            </div>
+            
+            <div class="grid-3">
+                
+                <a href="http://calculadora-aposentadoria.diversaacademy.com.br/" target="_blank" class="card">
+                    <div class="thumbnail" style="background-image: url('https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/Mask%20group-4.png');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <span class="card-tag">Calculadora</span>
+                        <div class="card-title">Simulador de Aposentadoria</div>
+                    </div>
+                </a>
+
+                <a href="https://calculadora-ig.diversaacademy.com.br/" target="_blank" class="card">
+                    <div class="thumbnail" style="background-image: url('https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/Mask%20group-1.png');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <span class="card-tag">Calculadora</span>
+                        <div class="card-title">Calculadora de Patrimônio Ideal</div>
+                    </div>
+                </a>
+
+                <a href="https://imposto-de-renda-guia-do-investidor.diversaacademy.com.br/" target="_blank" class="card">
+                    <div class="thumbnail" style="background-image: url('https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/Mask%20group.png');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <span class="card-tag">Guia / Sistema</span>
+                        <div class="card-title">Assistente de Imposto de Renda</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Últimas do <span>Blog</span></h2>
+                <a href="#" class="section-link">Ler todos os artigos &rarr;</a>
+            </div>
+            
+            <div class="grid-3">
+                <a href="https://www.linkedin.com/pulse/offshore-protegendo-seu-patrim%25C3%25B4nio-exterior-rhian-figueiredo-ng0ef/?trackingId=tM0F5W7lTyC1ON1QRET1SA%3D%3D" target="_blank" class="blog-card">
+                    <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/1713287808831.png" alt="Offshore" class="blog-img">
+                    <div class="blog-content">
+                        <span class="blog-date">Artigo LinkedIn</span>
+                        <h3 class="blog-title">Offshore: Protegendo seu Patrimônio no Exterior</h3>
+                        <p class="blog-desc">Entenda as vantagens de internacionalizar seus investimentos e como uma estrutura offshore protege seu capital.</p>
+                    </div>
+                </a>
+
+                <a href="https://www.linkedin.com/pulse/marca%25C3%25A7%25C3%25A3o-mercado-por-que-isso-importa-para-o-seu-bolso-figueiredo-tbh9f/?trackingId=tM0F5W7lTyC1ON1QRET1SA%3D%3D" target="_blank" class="blog-card">
+                    <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/1750258357044.png" alt="Marcação a Mercado" class="blog-img">
+                    <div class="blog-content">
+                        <span class="blog-date">Artigo LinkedIn</span>
+                        <h3 class="blog-title">Marcação a Mercado: Por que isso importa?</h3>
+                        <p class="blog-desc">Compreenda a dinâmica da marcação a mercado na renda fixa e como ela afeta a rentabilidade dos seus títulos.</p>
+                    </div>
+                </a>
+
+                <a href="https://www.linkedin.com/pulse/guia-completo-da-conta-cnr-de-n%25C3%25A3o-residente-do-btg-rhian-figueiredo-uokif/?trackingId=tM0F5W7lTyC1ON1QRET1SA%3D%3D" target="_blank" class="blog-card">
+                    <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/1761073394988.png" alt="Conta CNR" class="blog-img">
+                    <div class="blog-content">
+                        <span class="blog-date">Artigo LinkedIn</span>
+                        <h3 class="blog-title">Guia Completo da Conta CNR do BTG</h3>
+                        <p class="blog-desc">Um passo a passo definitivo para brasileiros que moram no exterior e precisam manter e investir recursos no Brasil.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Diversa Academy. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        let slideIndex = 1;
+        const autoPlayDelay = 5000; 
+
+        function showSlides(n) {
+            let slides = document.querySelectorAll(".carousel-slide");
+            let dots = document.querySelectorAll(".carousel-dots-container .dot");
+            
+            if (n > slides.length) { slideIndex = 1; }
+            if (n < 1) { slideIndex = slides.length; }
+            
+            slides.forEach(slide => slide.classList.remove("active"));
+            dots.forEach(dot => dot.classList.remove("active"));
+            
+            slides[slideIndex - 1].classList.add("active");
+            dots[slideIndex - 1].classList.add("active");
+        }
+
+        function moveSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        setInterval(() => {
+            moveSlide(1);
+        }, autoPlayDelay);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            showSlides(slideIndex);
+        });
+    </script>
+</body>
+</html>
