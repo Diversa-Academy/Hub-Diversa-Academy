@@ -46,7 +46,7 @@
             color: var(--cinza-01);
             overflow-x: hidden;
             line-height: 1.6;
-            padding-top: 126px;
+            padding-top: 134px; /* Ajustado: 80px do Menu + 54px do Ticker = 134px */
         }
 
         a { text-decoration: none; color: inherit; }
@@ -79,8 +79,18 @@
         .nav-links a { font-weight: 500; font-size: 1.1rem; color: var(--cinza-02); transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--azul-01); }
 
+        /* Ticker com Flexbox para criar margem real entre a borda e o conteúdo */
         .ticker-container {
-            width: 100%; height: 46px; border-top: 1px solid var(--azul-05); background-color: #000000; overflow: hidden;
+            width: 100%; 
+            height: 54px; /* Ticker base + margem */
+            border-top: 1px solid var(--azul-05); 
+            background-color: #000000; 
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        .ticker-container .tradingview-widget-container {
+            width: 100%;
         }
 
         /* =========================================
@@ -191,7 +201,6 @@
         .ranking-card { background-color: var(--cinza-05); border: 1px solid var(--azul-03); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; }
         .ranking-header { font-size: 1rem; font-weight: 800; color: var(--cinza-01); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
         
-        /* Ajuste do Ranking: Gráfico ativo + ~2 ativos na lista */
         .ranking-widget-container { 
             height: 360px; 
             width: 100%;
@@ -261,7 +270,11 @@
             .hero h1 { font-size: 3rem; }
         }
 
+        /* --- AJUSTES FINAIS PARA MOBILE --- */
         @media (max-width: 768px) {
+            body {
+                padding-top: 146px; /* 80px do Menu + 66px do Ticker Mobile */
+            }
             .nav-links { display: none; }
             .grid-3 { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.5rem; }
@@ -269,6 +282,11 @@
             .hero { padding: 80px 0; min-height: 60vh; }
             .logo-img { height: 40px; }
             .destaque-main { min-height: 350px; }
+            
+            /* Ticker mais alto para dar respiro na caixa preta */
+            .ticker-container {
+                height: 66px; 
+            }
         }
     </style>
 </head>
@@ -303,7 +321,11 @@
                     { "description": "B3 ON", "proName": "BMFBOVESPA:B3SA3" },
                     { "description": "WEG ON", "proName": "BMFBOVESPA:WEGE3" }
                 ],
-                "showSymbolLogo": true, "isTransparent": true, "displayMode": "adaptive", "colorTheme": "dark", "locale": "br"
+                "showSymbolLogo": true, 
+                "isTransparent": true, 
+                "displayMode": "regular", /* Alterado de adaptive para regular para a fonte não encolher */
+                "colorTheme": "dark", 
+                "locale": "br"
                 }
                 </script>
             </div>
