@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Diversa Academy - O Seu Portal Financeiro</title>
+    <meta name="description" content="O ecossistema completo para investidores. Acesse calculadoras, simuladores e conteúdos para a construção e proteção do seu patrimônio.">
+    <meta property="og:title" content="Diversa Academy | Domine o mercado">
+    <meta property="og:description" content="Gestão de patrimônio, ferramentas e educação financeira de alto nível.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/S%C3%ADmbolo%20Preto%20e%20Azul%2001.png">
+    <meta property="og:type" content="website">
     
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/S%C3%ADmbolo%20Preto%20e%20Azul%2001.png">
     
@@ -26,147 +32,74 @@
             --cinza-04: #67686A;
             --cinza-05: #353638;
             --preto: #0F0F0F;
+            --whatsapp: #25D366;
         }
 
         /* =========================================
            RESET E BASE
            ========================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Manrope', sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
         html { scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--azul-04);
-            color: var(--cinza-01);
-            overflow-x: hidden;
-            line-height: 1.6;
-            padding-top: 134px; 
-        }
-
+        body { background-color: var(--azul-04); color: var(--cinza-01); overflow-x: hidden; line-height: 1.6; padding-top: 134px; }
         a { text-decoration: none; color: inherit; }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            width: 100%;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
 
         /* =========================================
-           HEADER FIXO (Navbar + Ticker)
+           HEADER FIXO E SIDEBAR MOBILE
            ========================================= */
-        .fixed-header {
-            position: fixed;
-            top: 0; left: 0; width: 100%; z-index: 1000;
-            background-color: rgba(0, 3, 32, 0.98); 
-            border-bottom: 1px solid var(--azul-03);
-            display: flex; flex-direction: column;
-        }
-
-        .navbar .container {
-            display: flex; justify-content: space-between; align-items: center; height: 80px;
-        }
-
+        .fixed-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: rgba(0, 3, 32, 0.98); border-bottom: 1px solid var(--azul-03); display: flex; flex-direction: column; }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
         .logo-img { height: 50px; width: auto; display: block; }
-
+        
         .nav-links { display: flex; gap: 30px; list-style: none; }
         .nav-links a { font-weight: 500; font-size: 1.1rem; color: var(--cinza-02); transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--azul-01); }
 
-        /* Botão Hambúrguer (Mobile) */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .hamburger span {
-            width: 30px; height: 3px;
-            background-color: var(--cinza-01);
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
+        .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 30px; height: 3px; background-color: var(--cinza-01); border-radius: 2px; transition: all 0.3s; }
 
-        .ticker-container {
-            width: 100%; 
-            height: 54px; 
-            border-top: 1px solid var(--azul-05); 
-            background-color: #000000; 
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-        }
-        .ticker-container .tradingview-widget-container {
-            width: 100%;
-        }
+        .ticker-container { width: 100%; height: 54px; border-top: 1px solid var(--azul-05); background-color: #000000; overflow: hidden; display: flex; align-items: center; }
+        .ticker-container .tradingview-widget-container { width: 100%; }
 
-        /* =========================================
-           MENU LATERAL MOBILE (SIDEBAR)
-           ========================================= */
-        .sidebar-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(0,0,0,0.8); z-index: 2000;
-            opacity: 0; visibility: hidden; transition: all 0.3s ease;
-        }
-        .sidebar-overlay.active {
-            opacity: 1; visibility: visible;
-        }
-
-        .mobile-sidebar {
-            position: fixed; top: 0; right: -100%; width: 300px; max-width: 80%; height: 100vh;
-            background-color: var(--azul-05); border-left: 1px solid var(--azul-03);
-            z-index: 2001; transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            padding: 80px 30px; display: flex; flex-direction: column;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-        }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.8); z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-sidebar { position: fixed; top: 0; right: -100%; width: 300px; max-width: 80%; height: 100vh; background-color: var(--azul-05); border-left: 1px solid var(--azul-03); z-index: 2001; transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1); padding: 80px 30px; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
         .mobile-sidebar.active { right: 0; }
-        
-        .close-sidebar {
-            position: absolute; top: 20px; right: 30px; font-size: 2.5rem;
-            color: var(--cinza-02); cursor: pointer; transition: color 0.3s; line-height: 1;
-        }
+        .close-sidebar { position: absolute; top: 20px; right: 30px; font-size: 2.5rem; color: var(--cinza-02); cursor: pointer; transition: color 0.3s; line-height: 1; }
         .close-sidebar:hover { color: #fff; }
-
         .mobile-nav-links { list-style: none; display: flex; flex-direction: column; gap: 30px; margin-top: 20px; }
         .mobile-nav-links a { font-size: 1.4rem; font-weight: 700; color: var(--cinza-01); transition: color 0.3s; display: block; }
         .mobile-nav-links a:hover { color: var(--azul-01); }
 
         /* =========================================
+           BOTÃO WHATSAPP FLUTUANTE
+           ========================================= */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; background-color: var(--whatsapp);
+            color: #fff; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 9999;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+        .whatsapp-float svg { width: 32px; height: 32px; fill: currentColor; }
+
+        /* =========================================
            HERO SECTION COM VÍDEO DE FUNDO
            ========================================= */
-        .hero {
-            position: relative; padding: 140px 0; min-height: 80vh;
-            display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid var(--azul-05);
-            background-color: var(--azul-04); 
-        }
-
-        .hero-bg-video {
-            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
-            width: auto; height: auto; transform: translateX(-50%) translateY(-50%);
-            z-index: 0; object-fit: cover;
-        }
-
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 3, 32, 0.95) 0%, rgba(0, 17, 56, 0.6) 100%); z-index: 1;
-        }
-
+        .hero { position: relative; padding: 140px 0; min-height: 80vh; display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid var(--azul-05); background-color: var(--azul-04); }
+        .hero-bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translateX(-50%) translateY(-50%); z-index: 0; object-fit: cover; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 3, 32, 0.95) 0%, rgba(0, 17, 56, 0.6) 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; max-width: 700px; }
         .hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1.5px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .hero h1 span { color: var(--azul-01); }
         .hero p { font-size: 1.2rem; color: var(--cinza-01); margin-bottom: 30px; max-width: 600px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
         .hero-buttons { display: flex; gap: 15px; }
-        
         .btn-primary { background-color: var(--azul-01); color: #fff; padding: 14px 30px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; transition: background 0.3s ease; }
         .btn-primary:hover { background-color: var(--azul-02); }
-        
         .btn-secondary { background-color: transparent; color: var(--cinza-01); padding: 14px 30px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; border: 2px solid var(--cinza-02); transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease; }
         .btn-secondary:hover { border-color: var(--azul-01); color: #fff; background-color: rgba(13, 134, 255, 0.1); }
 
@@ -175,44 +108,28 @@
            ========================================= */
         .destaques-section { padding: 80px 0; background-color: var(--azul-04); }
         .destaques-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
-
-        .destaque-main {
-            position: relative; border-radius: 16px; overflow: hidden; height: 100%;
-            min-height: 360px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--azul-03);
-            background-color: var(--azul-05);
-        }
-
-        .carousel-slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden;
-            transition: opacity 0.6s ease-in-out, visibility 0.6s; display: flex; align-items: flex-end; z-index: 0; text-decoration: none; color: inherit;
-        }
-
+        .destaque-main { position: relative; border-radius: 16px; overflow: hidden; height: 100%; min-height: 360px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--azul-03); background-color: var(--azul-05); }
+        .carousel-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transition: opacity 0.6s ease-in-out, visibility 0.6s; display: flex; align-items: flex-end; z-index: 0; text-decoration: none; color: inherit; }
         .carousel-slide.active { opacity: 1; visibility: visible; z-index: 1; }
         .carousel-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.8s ease-out; }
         .destaque-main:hover .carousel-slide.active .carousel-bg { transform: scale(1.08); }
-
         .destaque-main-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.2) 100%); z-index: 1; }
         .destaque-content { position: relative; z-index: 2; padding: 30px 40px; width: 100%; }
         .destaque-tag { font-size: 0.8rem; font-weight: 800; color: var(--azul-01); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; display: inline-block; }
         .destaque-content h2 { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.2; letter-spacing: -1px; }
         .destaque-content p { font-size: 1rem; color: var(--cinza-02); max-width: 90%; margin-bottom: 20px; }
-
         .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; color: rgba(255,255,255,0.5); font-size: 2rem; cursor: pointer; padding: 15px; transition: color 0.3s, transform 0.3s; user-select: none; }
         .carousel-arrow:hover { color: #fff; transform: translateY(-50%) scale(1.2); }
         .carousel-prev { left: 10px; }
         .carousel-next { right: 10px; }
-
         .carousel-dots-container { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 3; }
         .dot { width: 10px; height: 10px; background-color: rgba(255,255,255,0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s; }
         .dot.active { background-color: var(--azul-01); width: 25px; border-radius: 5px; }
-
         .destaque-sidebar { display: flex; flex-direction: column; gap: 20px; }
-
         .contact-card { background: linear-gradient(135deg, var(--azul-03) 0%, var(--azul-05) 100%); border: 1px solid var(--azul-02); border-radius: 16px; padding: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
         .contact-card p { font-size: 1.1rem; font-weight: 600; color: var(--cinza-01); line-height: 1.4; margin-bottom: 15px; }
         .btn-contact { display: block; text-align: center; background-color: var(--cinza-01); color: var(--azul-04); padding: 10px 20px; border-radius: 8px; font-weight: 800; transition: background 0.3s ease, transform 0.2s ease; }
         .btn-contact:hover { background-color: #fff; transform: translateY(-2px); }
-
         .ranking-card { background-color: var(--cinza-05); border: 1px solid var(--azul-03); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; }
         .ranking-header { font-size: 1rem; font-weight: 800; color: var(--cinza-01); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
         .ranking-widget-container { height: 360px; width: 100%; }
@@ -228,14 +145,7 @@
         
         .section-link { color: var(--azul-01); font-weight: 700; display: flex; align-items: center; gap: 5px; transition: color 0.3s; }
         .section-link:hover { text-decoration: underline; }
-
-        /* Estilo para links desativados temporariamente */
-        .section-link.disabled {
-            color: var(--cinza-04);
-            cursor: not-allowed;
-            pointer-events: none;
-            opacity: 0.6;
-        }
+        .section-link.disabled { color: var(--cinza-04); cursor: not-allowed; pointer-events: none; opacity: 0.6; }
 
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 
@@ -245,26 +155,48 @@
         .card-info { position: absolute; bottom: 0; left: 0; z-index: 3; padding: 20px; width: 100%; color: var(--cinza-01); transform: translateY(0); transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
         .card-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--azul-01); margin-bottom: 5px; display: block; }
         .card-title { font-size: 1.25rem; font-weight: 700; line-height: 1.2; transition: color 0.3s ease; }
+        .card-desc { font-size: 0.85rem; color: var(--cinza-02); margin-top: 8px; line-height: 1.3; opacity: 0.9; }
 
         .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 15px rgba(13, 134, 255, 0.15); border-color: var(--azul-01); z-index: 10; }
         .card:hover .thumbnail { transform: scale(1.1); } 
         .card:hover .card-info { transform: translateY(-5px); }
         .card:hover .card-title { color: #fff; }
 
-        .blog-card { display: block; background-color: var(--azul-05); border: 1px solid var(--azul-03); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease; }
+        /* Cartões de Blog com Autor */
+        .blog-card { display: flex; flex-direction: column; background-color: var(--azul-05); border: 1px solid var(--azul-03); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease; }
         .blog-card:hover { transform: translateY(-5px); border-color: var(--azul-02); }
         .blog-img { width: 100%; height: 200px; object-fit: cover; background-color: var(--cinza-05); }
-        .blog-content { padding: 25px; }
+        .blog-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .blog-date { font-size: 0.85rem; color: var(--cinza-03); margin-bottom: 10px; display: block; }
         .blog-title { font-size: 1.3rem; font-weight: 700; color: var(--cinza-01); margin-bottom: 10px; line-height: 1.3; }
-        .blog-desc { font-size: 0.95rem; color: var(--cinza-02); }
+        .blog-desc { font-size: 0.95rem; color: var(--cinza-02); margin-bottom: 20px; flex-grow: 1; }
+        
+        /* Assinatura Blog */
+        .blog-author { display: flex; align-items: center; gap: 12px; margin-top: auto; border-top: 1px solid var(--azul-03); padding-top: 15px; }
+        .author-avatar { width: 34px; height: 34px; border-radius: 50%; background-color: var(--azul-01); color: #fff; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; font-weight: 800; }
+        .author-name { font-size: 0.9rem; font-weight: 700; color: var(--cinza-01); }
 
-        footer { background-color: var(--preto); padding: 40px 0; text-align: center; border-top: 1px solid var(--azul-03); }
-        footer p { color: var(--cinza-03); font-size: 0.9rem; }
+        /* =========================================
+           RODAPÉ PROFISSIONAL (FOOTER)
+           ========================================= */
+        footer { background-color: var(--preto); padding: 60px 0 30px; border-top: 1px solid var(--azul-03); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-brand img { height: 40px; margin-bottom: 15px; opacity: 0.8; }
+        .footer-brand p { color: var(--cinza-03); font-size: 0.95rem; max-width: 300px; }
+        
+        .footer-links h4 { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a { color: var(--cinza-03); font-size: 0.95rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--azul-01); }
+
+        .footer-bottom { border-top: 1px solid var(--cinza-05); padding-top: 30px; text-align: center; }
+        .footer-bottom .disclaimer { color: var(--cinza-04); font-size: 0.8rem; max-width: 800px; margin: 0 auto 15px auto; line-height: 1.5; }
+        .footer-bottom .copyright { color: var(--cinza-03); font-size: 0.9rem; font-weight: 700; }
 
         @media (max-width: 992px) {
             .grid-3 { grid-template-columns: repeat(2, 1fr); }
             .destaques-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
             .hero h1 { font-size: 3rem; }
         }
 
@@ -274,12 +206,16 @@
             .nav-links { display: none; }
             .hamburger { display: flex; }
             .grid-3 { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            .footer-brand p { margin: 0 auto; }
             .hero h1 { font-size: 2.5rem; }
             .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
             .hero { padding: 80px 0; min-height: 60vh; }
             .logo-img { height: 40px; }
             .destaque-main { min-height: 350px; }
             .ticker-container { height: 66px; }
+            .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+            .whatsapp-float svg { width: 26px; height: 26px; }
         }
     </style>
 </head>
@@ -319,11 +255,7 @@
                     { "description": "B3 ON", "proName": "BMFBOVESPA:B3SA3" },
                     { "description": "WEG ON", "proName": "BMFBOVESPA:WEGE3" }
                 ],
-                "showSymbolLogo": true, 
-                "isTransparent": true, 
-                "displayMode": "regular", 
-                "colorTheme": "dark", 
-                "locale": "br"
+                "showSymbolLogo": true, "isTransparent": true, "displayMode": "regular", "colorTheme": "dark", "locale": "br"
                 }
                 </script>
             </div>
@@ -339,6 +271,12 @@
             <li><a href="#blog" onclick="toggleSidebar()">Blog</a></li>
         </ul>
     </div>
+
+    <a href="https://api.whatsapp.com/send/?phone=554433466200&text&type=phone_number&app_absent=0" target="_blank" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 413.2c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 334.1l-4.4-7.1c-18.5-29.7-28.2-64.2-28.2-100.4 0-103 83.8-186.8 186.8-186.8 55 0 106.7 21.4 145.5 60.3 38.9 38.9 60.3 90.6 60.3 145.5 0 103-83.8 186.8-186.8 186.8zm102.6-139.8c-5.6-2.8-33.3-16.4-38.5-18.3-5.2-1.9-8.9-2.8-12.7 2.8-3.8 5.6-14.6 18.3-17.8 22-3.3 3.8-6.6 4.2-12.2 1.4-5.6-2.8-23.8-8.8-45.3-27.9-16.7-14.8-28-33.1-31.3-38.8-3.3-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.6-6.6 8.4-9.9 2.8-3.3 3.8-5.6 5.6-9.4 1.9-3.8 .9-7.1-.5-9.9-1.4-2.8-12.7-30.6-17.4-41.9-4.6-11-9.3-9.5-12.7-9.7-3.3-.2-7.1-.2-10.8-.2-3.8 0-9.9 1.4-15 7.1-5.2 5.6-20.2 19.7-20.2 48s20.7 55.4 23.5 59.1c2.8 3.8 40.3 61.6 97.5 86.3 13.6 5.9 24.3 9.4 32.6 12 13.7 4.3 26.2 3.7 36 2.2 10.9-1.6 33.3-13.6 38-26.8 4.7-13.1 4.7-24.5 3.3-26.8-1.4-2.3-5.2-3.8-10.8-6.6z"/>
+        </svg>
+    </a>
 
     <header class="hero">
         <video class="hero-bg-video" autoplay loop muted playsinline>
@@ -361,7 +299,7 @@
         <div class="container">
             <div class="destaques-grid">
                 
-                <div class="destaque-main">
+                <div class="destaque-main" id="touch-slider">
                     <a href="https://www.linkedin.com/pulse/o-papel-do-assessor-de-investimentos-rhian-figueiredo-minef/?trackingId=tM0F5W7lTyC1ON1QRET1SA%3D%3D" target="_blank" class="carousel-slide active">
                         <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/e5f6cddb4fa91f4865d7222c425b96661c114e3f/1711130314104.png" class="carousel-bg" alt="O Papel do Assessor">
                         <div class="destaque-main-overlay"></div>
@@ -492,6 +430,7 @@
                     <div class="card-info">
                         <span class="card-tag">Calculadora</span>
                         <div class="card-title">Simulador de Aposentadoria</div>
+                        <p class="card-desc">Descubra quanto investir hoje para garantir o padrão de vida no seu futuro.</p>
                     </div>
                 </a>
 
@@ -501,6 +440,7 @@
                     <div class="card-info">
                         <span class="card-tag">Calculadora</span>
                         <div class="card-title">Calculadora de Patrimônio Ideal</div>
+                        <p class="card-desc">Calcule o montante exato para alcançar a sua tão sonhada independência.</p>
                     </div>
                 </a>
 
@@ -510,6 +450,7 @@
                     <div class="card-info">
                         <span class="card-tag">Guia / Sistema</span>
                         <div class="card-title">Assistente de Imposto de Renda</div>
+                        <p class="card-desc">Simplifique sua declaração com facilidade, organização e inteligência tributária.</p>
                     </div>
                 </a>
             </div>
@@ -530,6 +471,10 @@
                         <span class="blog-date">Artigo LinkedIn</span>
                         <h3 class="blog-title">Offshore: Protegendo seu Patrimônio no Exterior</h3>
                         <p class="blog-desc">Entenda as vantagens de internacionalizar seus investimentos e como uma estrutura offshore protege seu capital.</p>
+                        <div class="blog-author">
+                            <div class="author-avatar">RF</div>
+                            <span class="author-name">Rhian Figueiredo</span>
+                        </div>
                     </div>
                 </a>
 
@@ -539,6 +484,10 @@
                         <span class="blog-date">Artigo LinkedIn</span>
                         <h3 class="blog-title">Marcação a Mercado: Por que isso importa?</h3>
                         <p class="blog-desc">Compreenda a dinâmica da marcação a mercado na renda fixa e como ela afeta a rentabilidade dos seus títulos.</p>
+                        <div class="blog-author">
+                            <div class="author-avatar">RF</div>
+                            <span class="author-name">Rhian Figueiredo</span>
+                        </div>
                     </div>
                 </a>
 
@@ -548,6 +497,10 @@
                         <span class="blog-date">Artigo LinkedIn</span>
                         <h3 class="blog-title">Guia Completo da Conta CNR do BTG</h3>
                         <p class="blog-desc">Um passo a passo definitivo para brasileiros que moram no exterior e precisam manter e investir recursos no Brasil.</p>
+                        <div class="blog-author">
+                            <div class="author-avatar">RF</div>
+                            <span class="author-name">Rhian Figueiredo</span>
+                        </div>
                     </div>
                 </a>
             </div>
@@ -556,7 +509,39 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Diversa Academy. Todos os direitos reservados.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="https://raw.githubusercontent.com/Diversa-Academy/Images/53612906de9b294b389d48610d98437d1fceadd4/Prancheta%2025.png" alt="Diversa Academy" class="logo-img">
+                    <p>Ecossistema completo de educação, ferramentas e inteligência financeira para auxiliar na construção e preservação do seu patrimônio.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="#cursos">Cursos e Educação</a></li>
+                        <li><a href="#ferramentas">Nossas Ferramentas</a></li>
+                        <li><a href="https://api.whatsapp.com/send/?phone=554433466200&text&type=phone_number&app_absent=0" target="_blank">Fale com um Especialista</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Acompanhe</h4>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/rhian-figueiredo/" target="_blank">LinkedIn</a></li>
+                        <li><a href="#" class="disabled">Instagram</a></li>
+                        <li><a href="#" class="disabled">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="disclaimer">
+                    Aviso Legal: Todo o conteúdo disponibilizado pela Diversa Academy possui caráter estritamente educacional e informativo. 
+                    Nenhuma das publicações ou calculadoras deve ser interpretada como recomendação, indicação, aconselhamento ou oferta de compra/venda de qualquer ativo financeiro. 
+                    Investimentos envolvem riscos e rentabilidade passada não é garantia de rentabilidade futura.
+                </p>
+                <p class="copyright">&copy; 2026 Diversa Academy. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
 
@@ -570,13 +555,13 @@
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
             
-            // Trava/Destrava o scroll da página de fundo
             document.body.style.overflow = isClosing ? 'auto' : 'hidden';
         }
 
-        /* Carrossel */
+        /* Lógica do Carrossel */
         let slideIndex = 1;
         const autoPlayDelay = 5000; 
+        let carouselInterval;
 
         function showSlides(n) {
             let slides = document.querySelectorAll(".carousel-slide");
@@ -594,18 +579,42 @@
 
         function moveSlide(n) {
             showSlides(slideIndex += n);
+            resetInterval();
         }
 
         function currentSlide(n) {
             showSlides(slideIndex = n);
+            resetInterval();
         }
 
-        setInterval(() => {
-            moveSlide(1);
-        }, autoPlayDelay);
+        function resetInterval() {
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => { moveSlide(1); }, autoPlayDelay);
+        }
 
+        /* Lógica de Swipe para Celular */
+        let touchstartX = 0;
+        let touchendX = 0;
+        const touchSlider = document.getElementById('touch-slider');
+
+        function handleGesture() {
+            if (touchendX < touchstartX - 40) moveSlide(1); // Deslizou para a esquerda
+            if (touchendX > touchstartX + 40) moveSlide(-1); // Deslizou para a direita
+        }
+
+        touchSlider.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        touchSlider.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleGesture();
+        }, {passive: true});
+
+        /* Iniciar */
         document.addEventListener("DOMContentLoaded", () => {
             showSlides(slideIndex);
+            carouselInterval = setInterval(() => { moveSlide(1); }, autoPlayDelay);
         });
     </script>
 </body>
