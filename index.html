@@ -225,8 +225,17 @@
         .section-header { margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end; }
         .section-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; color: var(--cinza-01); }
         .section-title span { color: var(--azul-01); }
-        .section-link { color: var(--azul-01); font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        
+        .section-link { color: var(--azul-01); font-weight: 700; display: flex; align-items: center; gap: 5px; transition: color 0.3s; }
         .section-link:hover { text-decoration: underline; }
+
+        /* Estilo para links desativados temporariamente */
+        .section-link.disabled {
+            color: var(--cinza-04);
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.6;
+        }
 
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 
@@ -262,8 +271,8 @@
         /* --- AJUSTES FINAIS PARA MOBILE --- */
         @media (max-width: 768px) {
             body { padding-top: 146px; }
-            .nav-links { display: none; /* Esconde menu do topo no mobile */ }
-            .hamburger { display: flex; /* Exibe o botão hambúrguer */ }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
             .grid-3 { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.5rem; }
             .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
@@ -444,7 +453,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Cursos <span>& Materiais</span></h2>
-                <a href="#" class="section-link">Ver todos os cursos &rarr;</a>
+                <a href="#" class="section-link disabled" aria-disabled="true">Ver todos os cursos &rarr;</a>
             </div>
             
             <div class="grid-3">
@@ -473,7 +482,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Nossas <span>Ferramentas</span></h2>
-                <a href="#" class="section-link">Acessar painel &rarr;</a>
+                <a href="#" class="section-link disabled" aria-disabled="true">Acessar painel &rarr;</a>
             </div>
             
             <div class="grid-3">
@@ -511,7 +520,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Últimas do <span>Blog</span></h2>
-                <a href="#" class="section-link">Ler todos os artigos &rarr;</a>
+                <a href="#" class="section-link disabled" aria-disabled="true">Ler todos os artigos &rarr;</a>
             </div>
             
             <div class="grid-3">
